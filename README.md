@@ -1,20 +1,42 @@
-# mYouTube
-EN:
-mYouTube is 1.21.11 plugin for sending customizable YouTube livestream and video announcements to Minecraft players.
+# mYouTube — уведомления о YouTube для Paper
 
-mYouTube lets server admins and content creators manually broadcast YouTube livestream and video announcements in Minecraft. 
-Use /alert СТРИМ <url> for a livestream or 
-Use /alert ВИДЕО <url> for a video. 
-Message formatting and colors are configurable, and permissions control which players receive each announcement.
+Плагин отправляет игрокам сервера уведомления о новых видео и прямых эфирах YouTube. Подготовлен для **Paper 1.21.11** и **Java 21**.
 
-Recommended Java version: Java 21.
+## Возможности
 
-RU:
-mYouTube — плагин для 1.21.11, который позволяет отправлять игрокам Minecraft настраиваемые объявления о прямых трансляциях и видео на YouTube.
+- Команда `/alert <СТРИМ/ВИДЕО> <ссылка>`
+- Отдельные уведомления для администраторов и ютуберов
+- Настраиваемые сообщения и цвета в `config.yml`
+- Автоопределение имени канала из ссылки и запись отправок в консоль
+- Дополнительные стили сообщений: MINIMAL, MODERN и RAINBOW
 
-С помощью mYouTube администраторы сервера и авторы контента могут вручную отправлять такие объявления в игре. 
-Используйте /alert СТРИМ <ссылка> для трансляции.
-Используйте /alert ВИДЕО <ссылка> для видео. 
-Форматирование и цвета сообщений настраиваются, а права доступа определяют, какие игроки получат каждое объявление.
+## Установка
 
-Рекомендуемая java 21
+1. Соберите проект командой `mvn clean package` или используйте готовый `target/mYouTube-1.0.0.jar`.
+2. Скопируйте JAR в папку `plugins/` сервера Paper 1.21.11.
+3. Запустите сервер. Настройки появятся в `plugins/mYouTube/config.yml`.
+
+Для сборки нужны **Java 21** и **Maven 3.6 или новее**.
+
+## Использование
+
+```text
+/alert СТРИМ https://youtube.com/live/...
+/alert ВИДЕО https://youtube.com/watch?v=...
+```
+
+Права:
+
+- `ytalert.admin` — отправляет уведомления администраторам; по умолчанию есть у операторов.
+- `ytalert.youtube` — отправляет уведомления игрокам с этим правом.
+- `ytalert.use` — базовое право команды, которое автоматически выдаётся двум ролям выше.
+
+Настраивайте тексты в секциях `messages.stream`, `messages.video` и других сообщениях файла `config.yml`. Доступны плейсхолдеры `{streamer}` и `{link}`.
+
+## Сборка из исходников
+
+```bash
+mvn clean package
+```
+
+Готовый плагин: `target/mYouTube-1.0.0.jar`.

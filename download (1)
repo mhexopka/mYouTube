@@ -1,0 +1,30 @@
+modules = ["java-17", "java-graalvm22.3"]
+[agent]
+expertMode = true
+
+[nix]
+channel = "stable-25_05"
+packages = ["jdk21"]
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Build Plugin"
+
+[[workflows.workflow]]
+name = "Build Plugin"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "JAVA_HOME=$(dirname $(dirname $(readlink -f $(command -v javac)))) mvn clean package"
+
+[workflows.workflow.metadata]
+outputType = "console"
